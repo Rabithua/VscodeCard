@@ -1,15 +1,39 @@
 @import "tailwindcss";
 
+
+
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+  --font-sans: ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+* {
+  scrollbar-width: none;
+  /* For Firefox */
+  -ms-overflow-style: none;
+  /* For Internet Explorer and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  /* For Chrome, Safari, and Opera */
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-[#EDEDED] dark:bg-[#111111];
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+.controlBtn {
+  @apply size-10 p-2 bg-black/5 rounded-xl hover:bg-black/10 hover:scale-95 cursor-pointer transition-colors duration-300;
+  @apply dark:bg-black/5 dark:hover:bg-white/10 dark:hover:scale-95;
+}
+
+.font-DMMono {
+  font-family: "DM Mono", monospace;
+
 }
