@@ -5,6 +5,7 @@ import {
   LocateFixed,
   PanelBottom,
   PanelTop,
+  SquareRoundCorner,
 } from "lucide-react";
 import { cardRatioStrings, cardStateAtom } from "~/atom/card";
 import {
@@ -125,6 +126,15 @@ export default function Controls() {
           setCardState({
             ...cardState,
             footBar: { hidden: !cardState.footBar.hidden },
+          });
+        }}
+      />
+      <SquareRoundCorner
+        className={`controlBtn ${cardState.borderRadius && "btnActive"}`}
+        onClick={() => {
+          setCardState({
+            ...cardState,
+            borderRadius: !cardState.borderRadius,
           });
         }}
       />

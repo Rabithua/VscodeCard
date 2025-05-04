@@ -35,7 +35,9 @@ function CardBackend({
   return (
     <div
       id="CardBackend"
-      className={`bg-[#181818] shrink-0 aspect-[37/26] font-DMMono rounded-3xl max-w-xl w-full overflow-hidden gap-6 flex flex-col items-center justify-center  hover:scale-99 duration-300 p-6`}
+      className={`bg-[#181818] shrink-0 aspect-[37/26] font-DMMono ${
+        cardState.borderRadius && "rounded-3xl"
+      } max-w-xl w-full overflow-hidden gap-6 flex flex-col items-center justify-center  hover:scale-99 duration-300 p-6`}
       style={{
         aspectRatio: cardState.aspectRatio,
       }}
@@ -72,7 +74,9 @@ function CardFrontend({
   return (
     <div
       id="CardFrontend"
-      className={`bg-[#181818] text-xl shrink-0 aspect-[37/26] font-DMMono rounded-3xl max-w-xl w-full overflow-hidden flex flex-col  hover:scale-99 duration-300`}
+      className={`bg-[#181818] text-xl shrink-0 aspect-[37/26] font-DMMono ${
+        cardState.borderRadius && "rounded-3xl"
+      } max-w-xl w-full overflow-hidden flex flex-col  hover:scale-99 duration-300`}
       style={{
         aspectRatio: cardState.aspectRatio,
       }}

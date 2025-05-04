@@ -17,6 +17,7 @@ export interface CardProps {
 export interface CardState {
     drawIng: boolean;
     aspectRatio: string;
+    borderRadius: boolean;
     windowBar: {
         hidden: boolean;
     };
@@ -68,6 +69,7 @@ export const cardPropsAtom = atom<CardProps>({
 export const cardStateAtom = atom<CardState>({
     drawIng: false,
     aspectRatio: "19 / 12",
+    borderRadius: true,
     windowBar: {
         hidden: false,
     },
