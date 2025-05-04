@@ -1,4 +1,3 @@
-import { toPng, toSvg } from "html-to-image";
 import {
   ChevronRight,
   CircleX,
@@ -15,19 +14,72 @@ import {
 } from "lucide-react";
 import NoStyleInput from "./NoStyleInput";
 import { useAtom } from "jotai";
-import { cardPropsAtom } from "~/atom/card";
-import { Fragment } from "react/jsx-runtime";
+import {
+  cardPropsAtom,
+  cardStateAtom,
+  type CardProps,
+  type CardState,
+} from "~/atom/card";
+import { Fragment, memo } from "react";
+import RenderHeatMap from "./HeatMap";
 
-export default function Card() {
-  const [props, setProps] = useAtom(cardPropsAtom);
+function CardBackend({
+  props,
+  setProps,
+  cardState,
+}: {
+  props: CardProps;
+  setProps: (newProps: CardProps) => void;
+  cardState: CardState;
+}) {
   return (
-    <div className="flex flex-col items-center justify-center h-screen ">
-      <div
-        id="Card"
-        className="bg-[#181818] aspect-[37/26] font-DMMono rounded-3xl max-w-xl w-full overflow-hidden flex flex-col text-xl hover:scale-99 duration-300"
-      >
-        {/* WindowBar */}
-        <div className=" flex flex-row shrink-0 justify-between items-center py-4 px-5 border-b border-[#2B2B2B]">
+    <div
+      id="CardBackend"
+      className={`bg-[#181818] shrink-0 aspect-[37/26] font-DMMono rounded-3xl max-w-xl w-full overflow-hidden gap-6 flex flex-col items-center justify-center  hover:scale-99 duration-300 p-6`}
+      style={{
+        aspectRatio: cardState.aspectRatio,
+      }}
+    >
+      <RenderHeatMap
+        username={props.fileName || "rabithua"}
+        days={props.cardBackend.github.days || 105}
+        toDate={props.cardBackend.github.toDate || "2025-05-04T00:00:00Z"}
+      />
+      <NoStyleInput
+        value={props.cardBackend.motto}
+        onChange={(value) =>
+          setProps({
+            ...props,
+            cardBackend: { ...props.cardBackend, motto: value },
+          })
+        }
+        placeholder="Enter your motto"
+        className="text-[#29CB41] text-xs"
+      />
+    </div>
+  );
+}
+
+function CardFrontend({
+  props,
+  setProps,
+  cardState,
+}: {
+  props: CardProps;
+  setProps: (newProps: any) => void;
+  cardState: CardState;
+}) {
+  return (
+    <div
+      id="CardFrontend"
+      className={`bg-[#181818] text-xl shrink-0 aspect-[37/26] font-DMMono rounded-3xl max-w-xl w-full overflow-hidden flex flex-col  hover:scale-99 duration-300`}
+      style={{
+        aspectRatio: cardState.aspectRatio,
+      }}
+    >
+      {/* WindowBar */}
+      {cardState.windowBar.hidden ? null : (
+        <div className=" flex flex-row shrink-0 justify-between items-center py-4 px-5 border-b border-[#848484]/5">
           <div className=" flex gap-1.5">
             <div className="size-3.5 rounded-full bg-[#FE6058]"></div>
             <div className="size-3.5 rounded-full bg-[#FFBF2E]"></div>
@@ -40,17 +92,23 @@ export default function Card() {
             <PanelRight className="size-6" />
           </div>
         </div>
+      )}
 
-        {/* FileDirector */}
+      {/* FileDirector */}
+      {cardState.fileDirector.hidden ? null : (
         <div className=" flex shrink-0 flex-row justify-between items-center">
-          <div className=" border-t bg-[#1F1F1F] border-[#0078D4] py-2.5 pl-5 pr-4 flex gap-2.5 items-center">
-            <div className=" text-[#CBCB41] text-xl font-bold ">{"{}"}</div>
-            <NoStyleInput
-              value={props.fileName}
-              onChange={(value) => setProps({ ...props, fileName: value })}
-              placeholder="Rabithua.json"
-              className=" text-white"
-            />
+          <div className=" border-t bg-[#848484]/5 border-[#0078D4] py-2.5 pl-5 pr-4 flex gap-2.5 items-center">
+            <div className=" text-[#CBCB41]  font-bold ">{"{}"}</div>
+            <div className=" flex items-center text-white">
+              <NoStyleInput
+                value={props.fileName}
+                onChange={(value) => setProps({ ...props, fileName: value })}
+                placeholder="Rabithua.json"
+                className=" text-white"
+              />
+              <span>.json</span>
+            </div>
+
             <div className="w-3.5 h-3.5 bg-white rounded-full" />
           </div>
 
@@ -59,115 +117,139 @@ export default function Card() {
             <Ellipsis className="size-6" />
           </div>
         </div>
+      )}
 
-        {/* CodeDirector */}
-        <div className="px-5 py-1 overflow-scroll shrink-0 gap-1 flex bg-[#1F1F1F] text-[#a9a9a9] items-center ">
+      {/* CodeDirector */}
+      {cardState.codeDirector.hidden ? null : (
+        <div className="px-5 py-1 overflow-scroll shrink-0 gap-1 flex bg-[#848484]/5 text-[#a9a9a9] items-center ">
           {props.location.map((loc, index) => (
             <Fragment key={`loc-${index}`}>
-              <div className="text-xl">{loc}</div>
+              <NoStyleInput
+                value={loc}
+                onChange={(value) =>
+                  setProps({
+                    ...props,
+                    location: props.location.map((l, i) =>
+                      i === index ? value : l
+                    ),
+                  })
+                }
+                placeholder="Enter location"
+                className="text-[#a9a9a9] "
+              />
               <ChevronRight className="size-6 shrink-0" />
             </Fragment>
           ))}
-          <div className="text-[#CBCB41] text-xl font-bold">{"{}"}</div>
-          <div className="text-xl">{props.fileName}</div>
+          <div className="text-[#CBCB41]  font-bold">{"{}"}</div>
+          <div className="flex items-center text-[#a9a9a9]">
+            <NoStyleInput
+              value={props.fileName}
+              onChange={(value) => setProps({ ...props, fileName: value })}
+              placeholder="Rabithua.json"
+              className=" text-[#a9a9a9] "
+            />
+            <span>.json</span>
+          </div>
           <ChevronRight className="size-6 shrink-0" />
           <RectangleEllipsis className="size-6 shrink-0 text-[#9CDCFE]" />
-          <div className="text-xl">{props.codes[0].key || "null"}</div>
+          <div className="">{props.codes[0].key || "null"}</div>
         </div>
+      )}
 
-        {/* CodeArea */}
-        <div className=" py-2.5 overflow-scroll px-7.5 grow bg-[#1F1F1F] border-b border-[#2B2B2B]">
-          <div className=" flex flex-col gap-1">
-            <div className="text-[#F3CD09] text-xl  ">{"{"}</div>
-            <div className="pl-10 inline-flex flex-col items-start gap-[5px]">
-              {props.codes.map((code, index) => (
-                <div
-                  key={`code-${index}`}
-                  className="inline-flex items-start gap-[5px]"
-                >
-                  <div className="text-[#9CDCFE]">
+      {/* CodeArea */}
+      <div className=" py-2.5 overflow-scroll px-7.5 grow bg-[#848484]/5 border-b border-[#2B2B2B]">
+        <div className=" flex flex-col gap-1">
+          <div className="text-[#F3CD09]   ">{"{"}</div>
+          <div className="pl-10 inline-flex flex-col items-start gap-[5px]">
+            {props.codes.map((code, index) => (
+              <div
+                key={`code-${index}`}
+                className="inline-flex items-start gap-[5px]"
+              >
+                <div className="text-[#9CDCFE] shrink-0">
+                  <span>"</span>
+                  <NoStyleInput
+                    value={code.key}
+                    onChange={(value) =>
+                      setProps({
+                        ...props,
+                        codes: props.codes.map((c, i) =>
+                          i === index ? { ...c, key: value } : c
+                        ),
+                      })
+                    }
+                    className=" text-[#9CDCFE]"
+                    placeholder={'"Enter key"'}
+                  />
+                  <span>"</span>
+                </div>
+                <div className="text-[#CCCCCC] shrink-0">:</div>
+                {Array.isArray(code.value) ? (
+                  <div className="shrink-0 inline-flex items-start gap-[5px]">
+                    <div className="text-[#DA70D6]">[</div>
+                    {code.value.map((item, idx) => (
+                      <Fragment key={idx}>
+                        <div className="text-[#CE9178] flex ">
+                          <span>"</span>
+                          <NoStyleInput
+                            value={item}
+                            onChange={(value) =>
+                              setProps({
+                                ...props,
+                                codes: props.codes.map((c, i) =>
+                                  i === index
+                                    ? {
+                                        ...c,
+                                        //@ts-ignore
+                                        value: c.value.map((v, j) =>
+                                          j === idx ? value : v
+                                        ),
+                                      }
+                                    : c
+                                ),
+                              })
+                            }
+                            className=" text-[#CE9178]"
+                            placeholder={'"Enter value"'}
+                          />
+                          <span>"</span>
+                        </div>
+                        {idx < code.value.length - 1 && (
+                          <div className="text-[#CCCCCC]">,</div>
+                        )}
+                      </Fragment>
+                    ))}
+                    <div className="text-[#DA70D6]">]</div>
+                  </div>
+                ) : (
+                  <div className="text-[#CE9178] shrink-0">
                     <span>"</span>
                     <NoStyleInput
-                      value={code.key}
+                      value={code.value}
                       onChange={(value) =>
                         setProps({
                           ...props,
                           codes: props.codes.map((c, i) =>
-                            i === index ? { ...c, key: value } : c
+                            i === index ? { ...c, value } : c
                           ),
                         })
                       }
-                      className=" text-[#9CDCFE]"
-                      placeholder={'"Enter key"'}
+                      className=" text-[#CE9178]"
+                      placeholder={'"Enter value"'}
                     />
                     <span>"</span>
                   </div>
-                  <div className="text-[#CCCCCC]">:</div>
-                  {Array.isArray(code.value) ? (
-                    <>
-                      <div className="text-[#DA70D6]">[</div>
-                      {code.value.map((item, idx) => (
-                        <Fragment key={idx}>
-                          <div className="text-[#CE9178] flex ">
-                            <span>"</span>
-                            <NoStyleInput
-                              value={item}
-                              onChange={(value) =>
-                                setProps({
-                                  ...props,
-                                  codes: props.codes.map((c, i) =>
-                                    i === index
-                                      ? {
-                                          ...c,
-                                          //@ts-ignore
-                                          value: c.value.map((v, j) =>
-                                            j === idx ? value : v
-                                          ),
-                                        }
-                                      : c
-                                  ),
-                                })
-                              }
-                              className=" text-[#CE9178]"
-                              placeholder={'"Enter value"'}
-                            />
-                            <span>"</span>
-                          </div>
-                          {idx < code.value.length - 1 && (
-                            <div className="text-[#CCCCCC]">,</div>
-                          )}
-                        </Fragment>
-                      ))}
-                      <div className="text-[#DA70D6]">]</div>
-                    </>
-                  ) : (
-                    <div className="text-[#CE9178]">
-                      <span>"</span>
-                      <NoStyleInput
-                        value={code.value}
-                        onChange={(value) =>
-                          setProps({
-                            ...props,
-                            codes: props.codes.map((c, i) =>
-                              i === index ? { ...c, value } : c
-                            ),
-                          })
-                        }
-                        className=" text-[#CE9178]"
-                        placeholder={'"Enter value"'}
-                      />
-                      <span>"</span>
-                    </div>
-                  )}
-                  <div className="text-[#CCCCCC]">,</div>
-                </div>
-              ))}
-            </div>
-            <div className="text-[#F3CD09] ">{"}"}</div>
+                )}
+                <div className="text-[#CCCCCC]">,</div>
+              </div>
+            ))}
           </div>
+          <div className="text-[#F3CD09] ">{"}"}</div>
         </div>
+      </div>
 
-        {/* FootBar */}
+      {/* FootBar */}
+      {cardState.footBar.hidden ? null : (
         <div className="flex gap-5 items-center shrink-0">
           <div className=" py-2.5 px-5 bg-[#0078D4] text-white">
             <CodeXml className="size-6" />
@@ -183,12 +265,24 @@ export default function Card() {
           </div>
           <div className="ml-auto flex pr-5 gap-2.5 text-[#A9A9A9]">
             <CircleX className="size-6" />
-            <div className="text-xl">0</div>
+            <div className="">0</div>
             <TriangleAlert className="size-6" />
-            <div className="text-xl">0</div>
+            <div className="">0</div>
           </div>
         </div>
-      </div>
+      )}
+    </div>
+  );
+}
+
+export default function Card() {
+  const [props, setProps] = useAtom(cardPropsAtom);
+  const [cardState, setCardState] = useAtom(cardStateAtom);
+
+  return (
+    <div className="flex flex-wrap items-center min-w-screen min-h-screen justify-center py-32 gap-6">
+      <CardFrontend props={props} setProps={setProps} cardState={cardState} />
+      <CardBackend props={props} setProps={setProps} cardState={cardState} />
     </div>
   );
 }
