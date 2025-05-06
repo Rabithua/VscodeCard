@@ -53,13 +53,6 @@ npm run start    # Preview the production build
 npm run check    # Perform code checks
 ```
 
-```bash
-npm run dev      # start development server
-npm run build    # build for production
-npm run start    # preview production build
-npm run check    # code check
-```
-
 Open http://localhost:3000 in your browser.
 
 ## Project Structure
