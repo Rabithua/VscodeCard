@@ -49,24 +49,6 @@ function CardBackend({
         aspectRatio: cardState.aspectRatio,
       }}
     >
-      <div className="flex flex-col justify-center items-center gap-2">
-        <div className="font-mono text-white flex gap-2 items-center">
-          <CircleCheckBig className="text-[#00D653] size-4" />
-          <div className="flex items-center">
-            @
-            <NoStyleInput
-              value={props.fileName || "rabithua"}
-              onChange={(value) => setProps({ ...props, fileName: value })}
-              placeholder="Enter your username"
-              className="text-white text-lg"
-            />
-          </div>
-        </div>
-        <div className="font-mono text-white flex gap-2 items-center">
-          {props.cardBackend.github.allContributions}
-          <span className="text-[#00D653]">Contributions</span>
-        </div>
-      </div>
       <RenderHeatMap
         username={props.fileName || "rabithua"}
         days={props.cardBackend.github.days || 182}
@@ -85,7 +67,13 @@ function CardBackend({
         {dateToYearNMonth(
           new Date(props.cardBackend.github.toDate || "2025-05-04T00:00:00Z")
         )}
+        <span className="text-[#00D653]">/</span>
+        <div className="font-mono text-white flex gap-2 items-center">
+          {props.cardBackend.github.allContributions}
+          <span>Contributions</span>
+        </div>
       </div>
+
       {cardState.cardBackend.motto.hidden ? null : (
         <NoStyleInput
           value={props.cardBackend.motto}
@@ -142,7 +130,12 @@ function CardFrontend({
       {/* FileDirector */}
       {cardState.fileDirector.hidden ? null : (
         <div className=" flex shrink-0 flex-row justify-between items-center">
-          <div className=" border-t bg-[#848484]/5 border-[#0078D4] py-2.5 pl-5 pr-4 flex gap-2.5 items-center">
+          <div
+            className=" border-t bg-[#848484]/5 border-[#0078D4] py-2.5 pl-5 pr-4 flex gap-2.5 items-center"
+            style={{
+              borderRight: `1px solid #ffffff05`,
+            }}
+          >
             <div className=" text-[#CBCB41]  font-bold ">{"{}"}</div>
             <div className=" flex items-center text-white">
               <NoStyleInput
@@ -159,9 +152,11 @@ function CardFrontend({
             )}
           </div>
 
-          <div className="flex px-5 gap-2.5 text-[#cccccc]">
-            <Columns2 className="size-6 " />
-            <Ellipsis className="size-6" />
+          <div className="flex h-full grow justify-end border-b border-white/5">
+            <div className="flex px-5 gap-2.5 text-[#cccccc]">
+              <Columns2 className="size-6 " />
+              <Ellipsis className="size-6" />
+            </div>
           </div>
         </div>
       )}
@@ -318,7 +313,7 @@ function CardFrontend({
             <NoStyleInput
               value={props.cursor}
               onChange={(value) => setProps({ ...props, cursor: value })}
-              placeholder="Bonjour/Rabithua#2"
+              placeholder="Github/Rabithua#2"
               className="text-[#A9A9A9]"
             />
           </div>

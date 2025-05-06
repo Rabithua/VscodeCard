@@ -47,7 +47,7 @@ export interface CardState {
 export const cardPropsAtom = atom<CardProps>({
     fileName: "Rabithua",
     location: [
-        "Bonjour",
+        "Github",
         "Profile",
     ],
     codes: [
@@ -68,11 +68,11 @@ export const cardPropsAtom = atom<CardProps>({
             value: "Code is Poetry",
         },
     ],
-    cursor: "Bonjour/Rabithua#2",
+    cursor: "Github/Rabithua#2",
     cardBackend: {
         motto: "The best way to predict the future is to invent it.",
         github: {
-            days: 182,
+            days: 140,
             toDate: "2025-05-04T00:00:00Z",
             allContributions: 501,
         },

@@ -98,13 +98,8 @@ function RenderHeatMap({ username, days, toDate }: HeatMapProps) {
     return contributions;
   };
 
-  //   003B11; //
-  // 006E24; //
-  // 00A332; //
-  // 00D653; //
-  // 131B24; //
   const getContributionClass = (count: number) => {
-    if (count === 0) return "bg-[#131B24]";
+    if (count === 0) return "bg-white/5";
     if (count <= 2) return "bg-[#003B11]";
     if (count <= 5) return "bg-[#006E24]";
     if (count <= 10) return "bg-[#00A332]";
@@ -130,19 +125,19 @@ function RenderHeatMap({ username, days, toDate }: HeatMapProps) {
   }, [data, error]);
 
   return (
-    <div className="p-[15px] border border-[#2B2B2B] bg-white/5 rounded-xl grid grid-rows-7 grid-flow-col gap-1">
+    <div className=" grid grid-rows-7 grid-flow-col gap-1">
       {isLoading
         ? Array.from({ length: days }).map((_, index) => (
             <div
               key={`backend-line-${index}`}
-              className="size-[14px] bg-white/5 rounded-xs animate-pulse"
+              className="size-5 bg-white/5 rounded-xs animate-pulse"
               style={{ animationDelay: `${index * 10}ms` }}
             ></div>
           ))
         : contributionData().map((count, index) => (
             <div
               key={`backend-line-${index}`}
-              className={`size-[14px] ${getContributionClass(
+              className={`size-5 ${getContributionClass(
                 count
               )} rounded-xs hover:opacity-80 transition-opacity`}
               title={`${count} contributions by ${username} on ${new Date(
