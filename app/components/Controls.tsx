@@ -7,7 +7,7 @@ import {
   PanelTop,
   SquareRoundCorner,
 } from "lucide-react";
-import { cardRatioStrings, cardStateAtom } from "~/atom/card";
+import { cardPropsAtom, cardRatioStrings, cardStateAtom } from "~/atom/card";
 import {
   Select,
   SelectContent,
@@ -15,9 +15,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { DatePicker } from "./DatePicker";
 
 export default function Controls() {
   const [cardState, setCardState] = useAtom(cardStateAtom);
+  const [props, setProps] = useAtom(cardPropsAtom);
 
   function svgIt(id: string) {
     const node = document.getElementById(id)!;
@@ -35,7 +37,7 @@ export default function Controls() {
       });
   }
 
-  function pngIt(id: string, scale: number = 7.68) {
+  function pngIt(id: string, scale: number = 7.5) {
     const node = document.getElementById(id)!;
 
     setCardState({ ...cardState, drawIng: true });
@@ -88,7 +90,6 @@ export default function Controls() {
 
   return (
     <div className="flex items-center justify-center gap-2 bg-white/80 dark:bg-[#191919]/80 px-4 py-2 rounded-3xl backdrop-blur-2xl fixed bottom-4 left-1/2 transform -translate-x-1/2">
-      <AspectRatioSelect />
       <PanelTop
         className={`controlBtn ${!cardState.windowBar.hidden && "btnActive"}`}
         onClick={() => {
@@ -138,6 +139,8 @@ export default function Controls() {
           });
         }}
       />
+      <AspectRatioSelect />
+      <DatePicker props={props} setProps={setProps} />
       <Divider />
       <div
         className="controlBtn"
