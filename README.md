@@ -1,4 +1,4 @@
-# VscodeCard
+# VscodeCardBonjour
 
 A React/TypeScript application that renders customizable VS Code–style cards with a live GitHub contributions heatmap.  
 Built with Vite, Tailwind CSS, Jotai for state, SWR for data fetching, and Lucide icons.
