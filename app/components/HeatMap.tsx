@@ -1,5 +1,7 @@
-import { useMemo } from "react";
+import { useAtom } from "jotai";
+import { useEffect, useMemo } from "react";
 import useSWR from "swr";
+import { cardPropsAtom } from "~/atom/card";
 
 const token = import.meta.env.VITE_PUBLIC_GITHUB_TOKEN;
 
@@ -21,6 +23,7 @@ const fetcher = async ([username, toDate, fromDate]: [
     toDate
   ).toISOString()}") {
           contributionCalendar {
+            totalContributions
             weeks {
               contributionDays {
                 date
@@ -48,6 +51,7 @@ const fetcher = async ([username, toDate, fromDate]: [
 };
 
 function RenderHeatMap({ username, days, toDate }: HeatMapProps) {
+  const [props, setProps] = useAtom(cardPropsAtom);
   console.log(
     "RenderHeatMap rendered with username:",
     username,
@@ -94,28 +98,51 @@ function RenderHeatMap({ username, days, toDate }: HeatMapProps) {
     return contributions;
   };
 
+  //   003B11; //
+  // 006E24; //
+  // 00A332; //
+  // 00D653; //
+  // 131B24; //
   const getContributionClass = (count: number) => {
-    if (count === 0) return "bg-white/10";
-    if (count <= 2) return "bg-green-900/50";
-    if (count <= 5) return "bg-green-700/70";
-    if (count <= 10) return "bg-green-500/80";
-    return "bg-green-400";
+    if (count === 0) return "bg-[#131B24]";
+    if (count <= 2) return "bg-[#003B11]";
+    if (count <= 5) return "bg-[#006E24]";
+    if (count <= 10) return "bg-[#00A332]";
+    return "bg-[#00D653]";
   };
 
+  useEffect(() => {
+    if (data && !error) {
+      console.log("Data fetched:", data);
+      setProps((prevProps) => ({
+        ...prevProps,
+        cardBackend: {
+          ...prevProps.cardBackend,
+          github: {
+            ...prevProps.cardBackend.github,
+            allContributions:
+              data.data.user.contributionsCollection.contributionCalendar
+                .totalContributions,
+          },
+        },
+      }));
+    }
+  }, [data, error]);
+
   return (
-    <div className="px-4 py-3 border border-white/10 bg-white/5 rounded-2xl grid grid-rows-7 grid-flow-col gap-1.5">
+    <div className="p-[15px] border border-[#2B2B2B] bg-white/5 rounded-xl grid grid-rows-7 grid-flow-col gap-1">
       {isLoading
         ? Array.from({ length: days }).map((_, index) => (
             <div
               key={`backend-line-${index}`}
-              className="size-5 border-white/5 bg-white/5 rounded-xs animate-pulse"
+              className="size-[14px] bg-white/5 rounded-xs animate-pulse"
               style={{ animationDelay: `${index * 10}ms` }}
             ></div>
           ))
         : contributionData().map((count, index) => (
             <div
               key={`backend-line-${index}`}
-              className={`size-5 border border-white/5 ${getContributionClass(
+              className={`size-[14px] ${getContributionClass(
                 count
               )} rounded-xs hover:opacity-80 transition-opacity`}
               title={`${count} contributions by ${username} on ${new Date(

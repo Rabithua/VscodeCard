@@ -35,11 +35,11 @@ export default function Controls() {
       });
   }
 
-  function pngIt(id: string) {
+  function pngIt(id: string, scale: number = 7.68) {
     const node = document.getElementById(id)!;
 
     setCardState({ ...cardState, drawIng: true });
-    toPng(node)
+    toPng(node, { pixelRatio: scale })
       .then((dataUrl) => {
         download(dataUrl, `${id}_${new Date().getTime()}.png`);
       })

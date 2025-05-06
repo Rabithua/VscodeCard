@@ -1,5 +1,6 @@
 import {
   ChevronRight,
+  CircleCheckBig,
   CircleX,
   CodeXml,
   Columns2,
@@ -32,6 +33,12 @@ function CardBackend({
   setProps: (newProps: CardProps) => void;
   cardState: CardState;
 }) {
+  function dateToYearNMonth(date: Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    return `${year}.${month}`;
+  }
+
   return (
     <div
       id="CardBackend"
@@ -42,22 +49,47 @@ function CardBackend({
         aspectRatio: cardState.aspectRatio,
       }}
     >
+      <div className="flex flex-col justify-center items-center gap-2">
+        <div className="font-mono text-white flex gap-2 items-center">
+          <CircleCheckBig className="text-[#00D653] size-4" />@{props.fileName}
+        </div>
+        <div className="font-mono text-white">
+          {props.cardBackend.github.allContributions}{" "}
+          <span className="text-[#00D653]">Contributions</span>
+        </div>
+      </div>
       <RenderHeatMap
         username={props.fileName || "rabithua"}
-        days={props.cardBackend.github.days || 105}
+        days={props.cardBackend.github.days || 182}
         toDate={props.cardBackend.github.toDate || "2025-05-04T00:00:00Z"}
       />
-      <NoStyleInput
-        value={props.cardBackend.motto}
-        onChange={(value) =>
-          setProps({
-            ...props,
-            cardBackend: { ...props.cardBackend, motto: value },
-          })
-        }
-        placeholder="Enter your motto"
-        className="text-[#29CB41] text-xs"
-      />
+      <div className="flex items-center gap-2 text-white font-mono text-md">
+        {dateToYearNMonth(
+          new Date(
+            new Date(
+              props.cardBackend.github.toDate || "2025-05-04T00:00:00Z"
+            ).getTime() -
+              props.cardBackend.github.days * 24 * 60 * 60 * 1000
+          )
+        )}
+        <span>-</span>
+        {dateToYearNMonth(
+          new Date(props.cardBackend.github.toDate || "2025-05-04T00:00:00Z")
+        )}
+      </div>
+      {cardState.cardBackend.motto.hidden ? null : (
+        <NoStyleInput
+          value={props.cardBackend.motto}
+          onChange={(value) =>
+            setProps({
+              ...props,
+              cardBackend: { ...props.cardBackend, motto: value },
+            })
+          }
+          placeholder="Enter your motto"
+          className="text-[#29CB41] text-xs"
+        />
+      )}
     </div>
   );
 }

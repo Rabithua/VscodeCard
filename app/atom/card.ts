@@ -10,6 +10,7 @@ export interface CardProps {
         github: {
             days: number;
             toDate: string;
+            allContributions: number;
         };
     };
 }
@@ -29,6 +30,11 @@ export interface CardState {
     };
     footBar: {
         hidden: boolean;
+    };
+    cardBackend: {
+        motto: {
+            hidden: boolean;
+        };
     };
 }
 
@@ -60,16 +66,17 @@ export const cardPropsAtom = atom<CardProps>({
     cardBackend: {
         motto: "The best way to predict the future is to invent it.",
         github: {
-            days: 105,
+            days: 182,
             toDate: "2025-05-04T00:00:00Z",
+            allContributions: 501,
         },
     },
 });
 
 export const cardStateAtom = atom<CardState>({
     drawIng: false,
-    aspectRatio: "19 / 12",
-    borderRadius: true,
+    aspectRatio: "177 / 114",
+    borderRadius: false,
     windowBar: {
         hidden: false,
     },
@@ -80,7 +87,12 @@ export const cardStateAtom = atom<CardState>({
         hidden: false,
     },
     footBar: {
-        hidden: false,
+        hidden: true,
+    },
+    cardBackend: {
+        motto: {
+            hidden: true,
+        },
     },
 });
 
@@ -89,6 +101,7 @@ export const cardRatioStrings = [
     "3 / 2", // Traditional photo ratio
     "4 / 3", // Traditional screen ratio
     "19 / 12", // Custom ratio
+    "177 / 114", // Custom ratio
     "16 / 9", // Widescreen ratio
     "1.618 / 1", // Golden ratio
     "1.414 / 1", // √2 ratio
