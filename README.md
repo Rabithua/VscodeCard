@@ -7,14 +7,15 @@ Built with Vite, Tailwind CSS, Jotai for state, SWR for data fetching, and Lucid
 
 - Frontend and backend card designs mimicking VS Code UI
 - Editable file name, code snippets and status via inline inputs
-- GitHub contributions heatmap (default 105 days) using GraphQL & SWR
+- GitHub contributions heatmap (default 182 days) using GraphQL & SWR
 - Customizable username, date range & appearance via props and global state
 - Responsive layout and smooth loading animation (pulsing blocks)
+- Auto fetch Github heatMap when fileName is change
 
 ## Demo
 
-![Backend Card](./screenshot/CardBackend.svg) | ![Frontend Card](./screenshot/CardFrontend.svg)
---- | ---
+| ![Backend Card](./screenshot/CardBackend.svg) | ![Frontend Card](./screenshot/CardFrontend.svg) |
+| --------------------------------------------- | ----------------------------------------------- |
 
 ## Getting Started
 
@@ -35,26 +36,22 @@ npm install
 
 Create a `.env` or configure Vite env in your shell:
 
-```bash
-# .env
+```
 VITE_PUBLIC_GITHUB_TOKEN=your_token_here
 ```
+
+![About Github personal Access Token](https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 
 ### Available Scripts
 
 ```bash
 npm run dev      # start development server
 npm run build    # build for production
-npm run preview  # preview production build
+npm run start    # preview production build
+npm run check    # code check
 ```
 
 Open http://localhost:3000 in your browser.
-
-## Usage
-
-- Edit card properties in the sidebar or directly on the card (file name, code keys/values, motto).
-- The heatmap fetches contributions for the given username (default “rabithua”).
-- Override defaults by passing props to `<RenderHeatMap username="user" days={90} toDate={new Date()} />`.
 
 ## Project Structure
 
@@ -63,12 +60,6 @@ Open http://localhost:3000 in your browser.
 - `app/components/NoStyleInput.tsx` — unstyled input for inline editing
 - `atom/card.ts` — Jotai atoms for props and UI state
 - `README.md` — this file
-
-## Customization
-
-- **Theme & styles**: Tailwind CSS config in `tailwind.config.js`
-- **Icons**: swap Lucide components in `Card.tsx`
-- **State management**: add new atoms for extra settings
 
 ## License
 
