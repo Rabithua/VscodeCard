@@ -39,7 +39,7 @@ export default function Controls() {
       });
   }
 
-  function pngIt(id: string, scale: number = 7.5) {
+  function pngIt(id: string, scale: number = 2) {
     const node = document.getElementById(id)!;
 
     setCardState({ ...cardState, drawIng: true });

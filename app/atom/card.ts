@@ -82,7 +82,7 @@ export const cardPropsAtom = atom<CardProps>({
 export const cardStateAtom = atom<CardState>({
     drawIng: false,
     aspectRatio: "177 / 114",
-    borderRadius: false,
+    borderRadius: true,
     windowBar: {
         hidden: false,
     },
@@ -93,7 +93,7 @@ export const cardStateAtom = atom<CardState>({
         hidden: false,
     },
     footBar: {
-        hidden: true,
+        hidden: false,
     },
     cardBackend: {
         motto: {
