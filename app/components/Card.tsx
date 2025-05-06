@@ -193,9 +193,21 @@ function CardFrontend({
       )}
 
       {/* CodeArea */}
-      <div className=" py-2.5 overflow-scroll px-7.5 grow bg-[#848484]/5 border-b border-[#2B2B2B]">
+      <div className=" py-2.5 overflow-scroll px-7.5 grow bg-[#848484]/5 border-b border-[#2B2B2B] flex gap-4">
+        {cardState.lineNumber.hidden ? null : (
+          <div className="text-[#CCCCCC] shrink-0 flex flex-col gap-1">
+            {Array.from(
+              { length: props.codes.length + 2 },
+              (_, i) => i + 1
+            ).map((line) => (
+              <div key={`line-${line}`} className="text-[#CCCCCC]/30">
+                {line}
+              </div>
+            ))}
+          </div>
+        )}
         <div className=" flex flex-col gap-1">
-          <div className="text-[#F3CD09]   ">{"{"}</div>
+          <div className="text-[#F3CD09] ">{"{"}</div>
           <div className="pl-10 inline-flex flex-col items-start gap-[5px]">
             {props.codes.map((code, index) => (
               <div

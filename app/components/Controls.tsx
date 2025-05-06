@@ -1,6 +1,7 @@
 import { toPng, toSvg } from "html-to-image";
 import { useAtom } from "jotai";
 import {
+  Binary,
   FolderClosedIcon,
   LocateFixed,
   PanelBottom,
@@ -136,6 +137,15 @@ export default function Controls() {
           setCardState({
             ...cardState,
             borderRadius: !cardState.borderRadius,
+          });
+        }}
+      />
+      <Binary
+        className={`controlBtn ${!cardState.lineNumber.hidden && "btnActive"}`}
+        onClick={() => {
+          setCardState({
+            ...cardState,
+            lineNumber: { hidden: !cardState.lineNumber.hidden },
           });
         }}
       />
