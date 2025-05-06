@@ -40,7 +40,7 @@ Create a `.env` or configure Vite env in your shell:
 VITE_PUBLIC_GITHUB_TOKEN=your_token_here
 ```
 
-![About Github personal Access Token](https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+[About Github personal Access Token](https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 
 > **Warning**: If you set `VITE_PUBLIC_GITHUB_TOKEN`, anyone who can access your web application can view your token. Ensure you handle it securely.
 
