@@ -25,7 +25,7 @@ export function DatePicker({
         <Button
           variant={"outline"}
           className={cn(
-            "w-[150px] justify-start text-left font-normal",
+            "w-[170px] justify-start text-left font-normal",
             !new Date(props.cardBackend.github.toDate) &&
               "text-muted-foreground"
           )}
