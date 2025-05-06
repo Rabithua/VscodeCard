@@ -1,87 +1,78 @@
-# Welcome to React Router!
+# VscodeCard
 
-A modern, production-ready template for building full-stack React applications using React Router.
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+A React/TypeScript application that renders customizable VS Code–style cards with a live GitHub contributions heatmap.  
+Built with Vite, Tailwind CSS, Jotai for state, SWR for data fetching, and Lucide icons.
 
 ## Features
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- Frontend and backend card designs mimicking VS Code UI
+- Editable file name, code snippets and status via inline inputs
+- GitHub contributions heatmap (default 105 days) using GraphQL & SWR
+- Customizable username, date range & appearance via props and global state
+- Responsive layout and smooth loading animation (pulsing blocks)
+
+## Demo
+
+## Demo
+
+![Backend Card](./screenshot/CardBackend.svg)
+
+![Frontend Card](./screenshot/CardFrontend.svg)
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js v16+
+- GitHub Personal Access Token with `read:user` and `repo` scope (for private data if needed)
+
 ### Installation
 
-Install the dependencies:
-
 ```bash
+git clone https://github.com/rabithua/VscodeCard.git
+cd VscodeCard
 npm install
 ```
 
-### Development
+### Environment Variables
 
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
+Create a `.env` or configure Vite env in your shell:
 
 ```bash
-npm run build
+# .env
+VITE_PUBLIC_GITHUB_TOKEN=your_token_here
 ```
 
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
+### Available Scripts
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+npm run dev      # start development server
+npm run build    # build for production
+npm run preview  # preview production build
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+Open http://localhost:3000 in your browser.
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+## Usage
 
-### DIY Deployment
+- Edit card properties in the sidebar or directly on the card (file name, code keys/values, motto).
+- The heatmap fetches contributions for the given username (default “rabithua”).
+- Override defaults by passing props to `<RenderHeatMap username="user" days={90} toDate={new Date()} />`.
 
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
+## Project Structure
 
-Make sure to deploy the output of `npm run build`
+- `app/components/Card.tsx` — combines frontend & backend card
+- `app/components/HeatMap.tsx` — heatmap component using SWR & GitHub GraphQL
+- `app/components/NoStyleInput.tsx` — unstyled input for inline editing
+- `atom/card.ts` — Jotai atoms for props and UI state
+- `README.md` — this file
 
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
+## Customization
 
-## Styling
+- **Theme & styles**: Tailwind CSS config in `tailwind.config.js`
+- **Icons**: swap Lucide components in `Card.tsx`
+- **State management**: add new atoms for extra settings
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+## License
 
----
-
-Built with ❤️ using React Router.
+MIT © rabithua

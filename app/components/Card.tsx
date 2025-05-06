@@ -53,8 +53,8 @@ function CardBackend({
         <div className="font-mono text-white flex gap-2 items-center">
           <CircleCheckBig className="text-[#00D653] size-4" />@{props.fileName}
         </div>
-        <div className="font-mono text-white">
-          {props.cardBackend.github.allContributions}{" "}
+        <div className="font-mono text-white flex gap-2 items-center">
+          {props.cardBackend.github.allContributions}
           <span className="text-[#00D653]">Contributions</span>
         </div>
       </div>
