@@ -13,11 +13,8 @@ Built with Vite, Tailwind CSS, Jotai for state, SWR for data fetching, and Lucid
 
 ## Demo
 
-## Demo
-
-![Backend Card](./screenshot/CardBackend.svg)
-
-![Frontend Card](./screenshot/CardFrontend.svg)
+![Backend Card](./screenshot/CardBackend.svg) | ![Frontend Card](./screenshot/CardFrontend.svg)
+--- | ---
 
 ## Getting Started
 
