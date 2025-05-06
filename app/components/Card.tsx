@@ -51,7 +51,16 @@ function CardBackend({
     >
       <div className="flex flex-col justify-center items-center gap-2">
         <div className="font-mono text-white flex gap-2 items-center">
-          <CircleCheckBig className="text-[#00D653] size-4" />@{props.fileName}
+          <CircleCheckBig className="text-[#00D653] size-4" />
+          <div className="flex items-center">
+            @
+            <NoStyleInput
+              value={props.fileName || "rabithua"}
+              onChange={(value) => setProps({ ...props, fileName: value })}
+              placeholder="Enter your username"
+              className="text-white text-lg"
+            />
+          </div>
         </div>
         <div className="font-mono text-white flex gap-2 items-center">
           {props.cardBackend.github.allContributions}
@@ -145,7 +154,9 @@ function CardFrontend({
               <span>.json</span>
             </div>
 
-            <div className="w-3.5 h-3.5 bg-white rounded-full" />
+            {cardState.saveDot.hidden ? null : (
+              <div className="w-3.5 h-3.5 bg-white rounded-full" />
+            )}
           </div>
 
           <div className="flex px-5 gap-2.5 text-[#cccccc]">
@@ -195,7 +206,7 @@ function CardFrontend({
       {/* CodeArea */}
       <div className=" py-2.5 overflow-scroll px-7.5 grow bg-[#848484]/5 border-b border-[#2B2B2B] flex gap-4">
         {cardState.lineNumber.hidden ? null : (
-          <div className="text-[#CCCCCC] shrink-0 flex flex-col gap-1">
+          <div className="text-[#CCCCCC] shrink-0 flex flex-col gap-0.5">
             {Array.from(
               { length: props.codes.length + 2 },
               (_, i) => i + 1
@@ -206,13 +217,13 @@ function CardFrontend({
             ))}
           </div>
         )}
-        <div className=" flex flex-col gap-1">
+        <div className=" flex flex-col gap-0.5">
           <div className="text-[#F3CD09] ">{"{"}</div>
-          <div className="pl-10 inline-flex flex-col items-start gap-[5px]">
+          <div className="pl-10 inline-flex flex-col items-start gap-0.5">
             {props.codes.map((code, index) => (
               <div
                 key={`code-${index}`}
-                className="inline-flex items-start gap-[5px]"
+                className="inline-flex items-start gap-0.5"
               >
                 <div className="text-[#9CDCFE] shrink-0">
                   <span>"</span>
@@ -233,7 +244,7 @@ function CardFrontend({
                 </div>
                 <div className="text-[#CCCCCC] shrink-0">:</div>
                 {Array.isArray(code.value) ? (
-                  <div className="shrink-0 inline-flex items-start gap-[5px]">
+                  <div className="shrink-0 inline-flex items-start gap-0.5">
                     <div className="text-[#DA70D6]">[</div>
                     {code.value.map((item, idx) => (
                       <Fragment key={idx}>

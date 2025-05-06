@@ -39,6 +39,9 @@ export interface CardState {
     lineNumber: {
         hidden: boolean;
     };
+    saveDot: {
+        hidden: boolean;
+    };
 }
 
 export const cardPropsAtom = atom<CardProps>({
@@ -98,6 +101,9 @@ export const cardStateAtom = atom<CardState>({
         },
     },
     lineNumber: {
+        hidden: false,
+    },
+    saveDot: {
         hidden: false,
     },
 });

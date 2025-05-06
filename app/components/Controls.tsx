@@ -6,6 +6,7 @@ import {
   LocateFixed,
   PanelBottom,
   PanelTop,
+  SaveOff,
   SquareRoundCorner,
 } from "lucide-react";
 import { cardPropsAtom, cardRatioStrings, cardStateAtom } from "~/atom/card";
@@ -122,6 +123,24 @@ export default function Controls() {
           });
         }}
       />
+      <Binary
+        className={`controlBtn ${!cardState.lineNumber.hidden && "btnActive"}`}
+        onClick={() => {
+          setCardState({
+            ...cardState,
+            lineNumber: { hidden: !cardState.lineNumber.hidden },
+          });
+        }}
+      />
+      <SaveOff
+        className={`controlBtn ${!cardState.saveDot.hidden && "btnActive"}`}
+        onClick={() => {
+          setCardState({
+            ...cardState,
+            saveDot: { hidden: !cardState.saveDot.hidden },
+          });
+        }}
+      />
       <PanelBottom
         className={`controlBtn ${!cardState.footBar.hidden && "btnActive"}`}
         onClick={() => {
@@ -140,20 +159,12 @@ export default function Controls() {
           });
         }}
       />
-      <Binary
-        className={`controlBtn ${!cardState.lineNumber.hidden && "btnActive"}`}
-        onClick={() => {
-          setCardState({
-            ...cardState,
-            lineNumber: { hidden: !cardState.lineNumber.hidden },
-          });
-        }}
-      />
+      <Divider />
       <AspectRatioSelect />
       <DatePicker props={props} setProps={setProps} />
       <Divider />
       <div
-        className="controlBtn"
+        className="controlBtn border-2 border-dashed border-black/10"
         onClick={() => {
           svgIt("CardFrontend");
           svgIt("CardBackend");
@@ -162,7 +173,7 @@ export default function Controls() {
         <span className="text-xs font-mono font-black">SVG</span>
       </div>
       <div
-        className="controlBtn"
+        className="controlBtn border-2 border-dashed border-black/10"
         onClick={() => {
           pngIt("CardFrontend");
           pngIt("CardBackend");

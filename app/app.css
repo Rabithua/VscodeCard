@@ -30,7 +30,7 @@ body {
 }
 
 .controlBtn {
-  @apply size-10 p-2 bg-black/5 rounded-xl cursor-pointer transition-colors duration-300;
+  @apply size-10 p-2 flex justify-center items-center bg-black/5 rounded-xl cursor-pointer transition-colors duration-300;
 }
 
 .btnActive {
@@ -39,6 +39,15 @@ body {
 
 .font-DMMono {
   font-family: "DM Mono", monospace;
+}
+
+.rdp-day_button {
+  border-radius: 0.5rem !important;
+}
+
+.rdp-selected .rdp-day_button {
+  background-color: var(--color-primary) !important;
+  color: var(--color-primary-foreground) !important;
 }
 
 @theme inline {
