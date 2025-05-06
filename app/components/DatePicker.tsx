@@ -56,7 +56,7 @@ export function DatePicker({
               });
             }
           }}
-          initialFocus
+          className="grayscale"
         />
       </PopoverContent>
     </Popover>

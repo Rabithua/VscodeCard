@@ -21,9 +21,9 @@
     "isbot": "^5.1.27",
     "jotai": "^2.12.3",
     "lucide-react": "^0.505.0",
-    "react": "^18.2.0",
-    "react-day-picker": "^8.10.1",
-    "react-dom": "^18.2.0",
+    "react": "^19.1.0",
+    "react-day-picker": "^9",
+    "react-dom": "^19.1.0",
     "react-router": "^7.5.3",
     "swr": "^2.3.3",
     "tailwind-merge": "^3.2.0"
