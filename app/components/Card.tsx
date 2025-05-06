@@ -124,17 +124,14 @@ function CardFrontend({
     >
       {/* WindowBar */}
       {cardState.windowBar.hidden ? null : (
-        <div className=" flex flex-row shrink-0 justify-between items-center py-4 px-5 border-b border-[#848484]/5">
+        <div className=" flex flex-row shrink-0 justify-between items-center py-4 px-5 border-b border-[#2B2B2B]">
           <div className=" flex gap-1.5">
             <div className="size-3.5 rounded-full bg-[#FE6058]"></div>
             <div className="size-3.5 rounded-full bg-[#FFBF2E]"></div>
             <div className="size-3.5 rounded-full bg-[#29CB41]"></div>
           </div>
           <div className="flex gap-2.5 text-[#cccccc]">
-            <LayoutPanelLeft className="size-6" />
-            <PanelLeft className="size-6" />
-            <PanelBottom className="size-6" />
-            <PanelRight className="size-6" />
+            <Ellipsis className="size-6" />
           </div>
         </div>
       )}
@@ -142,7 +139,13 @@ function CardFrontend({
       {/* FileDirector */}
       {cardState.fileDirector.hidden ? null : (
         <div className=" flex shrink-0 flex-row justify-between items-center">
-          <div className=" border-t bg-[#848484]/5 border-[#0078D4] py-2.5 pl-5 pr-4 flex gap-2.5 items-center">
+          <div
+            className=" border-t ml-4 bg-[#848484]/5 border-[#0078D4] py-2.5 pl-5 pr-4 flex gap-2.5 items-center"
+            style={{
+              borderRight: `1px solid #2B2B2B`,
+              borderLeft: `1px solid #2B2B2B`,
+            }}
+          >
             <div className=" text-[#CBCB41]  font-bold ">{"{}"}</div>
             <div className=" flex items-center text-white">
               <NoStyleInput
@@ -159,9 +162,15 @@ function CardFrontend({
             )}
           </div>
 
-          <div className="flex px-5 gap-2.5 text-[#cccccc]">
-            <Columns2 className="size-6 " />
-            <Ellipsis className="size-6" />
+          <div
+            className="grow h-full flex items-center justify-end "
+            style={{
+              borderBottom: `1px solid #2B2B2B`,
+            }}
+          >
+            <div className="flex gap-2.5 text-[#cccccc]">
+              <img src="./fuku.svg" alt="fuku.svg" className="h-6 w-47" />
+            </div>
           </div>
         </div>
       )}
@@ -187,7 +196,6 @@ function CardFrontend({
               <ChevronRight className="size-6 shrink-0" />
             </Fragment>
           ))}
-          <div className="text-[#CBCB41]  font-bold">{"{}"}</div>
           <div className="flex items-center text-[#a9a9a9]">
             <NoStyleInput
               value={props.fileName}
@@ -198,15 +206,14 @@ function CardFrontend({
             <span>.json</span>
           </div>
           <ChevronRight className="size-6 shrink-0" />
-          <RectangleEllipsis className="size-6 shrink-0 text-[#9CDCFE]" />
-          <div className="">{props.codes[0].key || "null"}</div>
+          <div className="font-sans">...</div>
         </div>
       )}
 
       {/* CodeArea */}
-      <div className=" py-2.5 overflow-scroll px-7.5 grow bg-[#848484]/5 border-b border-[#2B2B2B] flex gap-4">
+      <div className=" py-2.5 overflow-scroll px-7.5 grow bg-[#848484]/5 border-b border-[#2B2B2B] flex gap-6">
         {cardState.lineNumber.hidden ? null : (
-          <div className="text-[#CCCCCC] shrink-0 flex flex-col gap-0.5">
+          <div className="text-[#CCCCCC] shrink-0 flex flex-col gap-0.5 ml-4">
             {Array.from(
               { length: props.codes.length + 2 },
               (_, i) => i + 1

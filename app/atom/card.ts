@@ -47,8 +47,8 @@ export interface CardState {
 export const cardPropsAtom = atom<CardProps>({
     fileName: "Rabithua",
     location: [
-        "Bonjour",
-        "Profile",
+        "bonjour",
+        "geek",
     ],
     codes: [
         {
@@ -104,7 +104,7 @@ export const cardStateAtom = atom<CardState>({
         hidden: false,
     },
     saveDot: {
-        hidden: false,
+        hidden: true,
     },
 });
 
