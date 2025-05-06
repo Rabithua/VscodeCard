@@ -46,7 +46,9 @@ const fetcher = async ([username, toDate, fromDate]: [
   });
 
   const data = await response.json();
-  if (data.errors) throw new Error(data.errors[0].message);
+  console.log("Fetched data:", data);
+
+  if (data.message) throw new Error(data.message);
   return data;
 };
 

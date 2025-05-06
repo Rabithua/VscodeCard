@@ -42,7 +42,16 @@ VITE_PUBLIC_GITHUB_TOKEN=your_token_here
 
 ![About Github personal Access Token](https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 
+> **Warning**: If you set `VITE_PUBLIC_GITHUB_TOKEN`, anyone who can access your web application can view your token. Ensure you handle it securely.
+
 ### Available Scripts
+
+```bash
+npm run dev      # Start the development server
+npm run build    # Build the application for production
+npm run start    # Preview the production build
+npm run check    # Perform code checks
+```
 
 ```bash
 npm run dev      # start development server
