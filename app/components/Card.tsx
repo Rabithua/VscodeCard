@@ -54,6 +54,7 @@ function CardBackend({
         days={props.cardBackend.github.days || 182}
         toDate={props.cardBackend.github.toDate || "2025-05-04T00:00:00Z"}
       />
+      <div className="w-64 h-[0.5px] bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
       <div className="flex items-center gap-2 text-white font-mono text-md">
         {dateToYearNMonth(
           new Date(

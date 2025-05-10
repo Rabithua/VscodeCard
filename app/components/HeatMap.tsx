@@ -127,29 +127,37 @@ function RenderHeatMap({ username, days, toDate }: HeatMapProps) {
   }, [data, error]);
 
   return (
-    <div className=" grid grid-rows-7 grid-flow-col gap-1">
-      {isLoading
-        ? Array.from({ length: days }).map((_, index) => (
-            <div
-              key={`backend-line-${index}`}
-              className="size-5 bg-white/5 rounded-xs animate-pulse"
-              style={{ animationDelay: `${index * 10}ms` }}
-            ></div>
-          ))
-        : contributionData().map((count, index) => (
-            <div
-              key={`backend-line-${index}`}
-              className={`size-5 ${getContributionClass(
-                count
-              )} rounded-xs hover:opacity-80 transition-opacity`}
-              title={`${count} contributions by ${username} on ${new Date(
-                new Date(toDate).getTime() -
-                  (days - 1 - index) * 24 * 60 * 60 * 1000
-              )
-                .toISOString()
-                .slice(0, 10)}`}
-            ></div>
-          ))}
+    <div className=" flex gap-2">
+      <div className="flex flex-col justify-between text-xs text-white/50 pr-2">
+        <span>Mon</span>
+        <span>Wed</span>
+        <span>Fri</span>
+        <span>Sun</span>
+      </div>
+      <div className=" grid grid-rows-7 grid-flow-col gap-1">
+        {isLoading
+          ? Array.from({ length: days }).map((_, index) => (
+              <div
+                key={`backend-line-${index}`}
+                className="size-4.5 bg-white/5 rounded-xs animate-pulse border border-white/5"
+                style={{ animationDelay: `${index * 10}ms` }}
+              ></div>
+            ))
+          : contributionData().map((count, index) => (
+              <div
+                key={`backend-line-${index}`}
+                className={`size-4.5 ${getContributionClass(
+                  count
+                )} rounded-xs hover:opacity-80 transition-opacity border border-white/5`}
+                title={`${count} contributions by ${username} on ${new Date(
+                  new Date(toDate).getTime() -
+                    (days - 1 - index) * 24 * 60 * 60 * 1000
+                )
+                  .toISOString()
+                  .slice(0, 10)}`}
+              ></div>
+            ))}
+      </div>
     </div>
   );
 }
