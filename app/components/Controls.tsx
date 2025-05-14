@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import {
   Binary,
   FolderClosedIcon,
+  Github,
   LocateFixed,
   PanelBottom,
   PanelTop,
@@ -181,6 +182,13 @@ export default function Controls() {
       >
         <span className="text-xs font-mono font-black">PNG</span>
       </div>
+      <Divider />
+      <Github
+        className="controlBtn"
+        onClick={() => {
+          window.open("https://github.com/Rabithua/VscodeCard");
+        }}
+      />
     </div>
   );
 }
