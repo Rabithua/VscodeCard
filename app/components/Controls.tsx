@@ -92,7 +92,7 @@ export default function Controls() {
   }
 
   return (
-    <div className="flex items-center justify-center gap-2 bg-white/80 dark:bg-[#191919]/80 px-4 py-2 rounded-3xl backdrop-blur-2xl fixed bottom-4 left-1/2 transform -translate-x-1/2">
+    <div className=" flex items-center justify-center gap-2 bg-white/80 dark:bg-[#191919]/80 px-4 py-2 rounded-3xl backdrop-blur-2xl fixed bottom-4 left-1/2 transform -translate-x-1/2">
       <PanelTop
         className={`controlBtn ${!cardState.windowBar.hidden && "btnActive"}`}
         onClick={() => {
