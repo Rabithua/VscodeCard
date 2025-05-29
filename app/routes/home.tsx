@@ -12,7 +12,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <StarsBackground>
+    <StarsBackground pointerEvents={false}>
       <Card />
       <Controls />
     </StarsBackground>
