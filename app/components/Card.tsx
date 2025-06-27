@@ -142,7 +142,7 @@ function CardFrontend({
               <NoStyleInput
                 value={props.fileName}
                 onChange={(value) => setProps({ ...props, fileName: value })}
-                placeholder="Rabithua.json"
+                placeholder="Rabithua"
                 className=" text-white"
               />
               <span>.json</span>
@@ -188,7 +188,7 @@ function CardFrontend({
             <NoStyleInput
               value={props.fileName}
               onChange={(value) => setProps({ ...props, fileName: value })}
-              placeholder="Rabithua.json"
+              placeholder="Rabithua"
               className=" text-[#a9a9a9] "
             />
             <span>.json</span>
@@ -234,7 +234,7 @@ function CardFrontend({
                       })
                     }
                     className=" text-[#9CDCFE]"
-                    placeholder={'"Enter key"'}
+                    placeholder="Enter key"
                   />
                   <span>"</span>
                 </div>
@@ -265,7 +265,7 @@ function CardFrontend({
                               })
                             }
                             className=" text-[#CE9178]"
-                            placeholder={'"Enter value"'}
+                            placeholder="Enter value"
                           />
                           <span>"</span>
                         </div>
@@ -290,7 +290,7 @@ function CardFrontend({
                         })
                       }
                       className=" text-[#CE9178]"
-                      placeholder={'"Enter value"'}
+                      placeholder="Enter value"
                     />
                     <span>"</span>
                   </div>
